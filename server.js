@@ -1,117 +1,71 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
+require('dotenv').config();
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+require('dotenv').config();
 
 const app = express();
-
-// Middleware
-app.use(cors());
 app.use(express.json());
+app.use(cors());
 
-// DB Connection
-mongoose.connect("mongodb://127.0.0.1:27017/quantum")
-  .then(() => console.log("Quantum DB Connected"))
-  .catch(err => console.log(err));
+// Connect to the Database
+// This looks for your secret link in the .env file
+mongoose.connect("mongodb+srv://hackathonuser:manu123@cluster0.jutxdtw.mongodb.net/DevMatch?retryWrites=true&w=majority")
+  .then(() => console.log("✅ Database Connected!"))
+  .catch(err => console.log("❌ DB Error: ", err));
 
-// Model
-const User = require("./models/QuantumUser");
+// Define what a "User" looks like
+const User = mongoose.model('User', new mongoose.Schema({
+  name: String,
+  email: String,
+  skills: [String],
+  role: String
+}));
 
-// Routes
-
-// Create Quantum Profile
-app.post("/quantum/user", async (req, res) => {
-  try {
-    const { name, skills, experience, lookingFor } = req.body;
-
-    if (!name || !skills || skills.length === 0) {
-      return res.status(400).json({ message: "Invalid Quantum Data" });
-    }
-
-    const user = new User({
-      name,
-      skills,
-      experience,
-      lookingFor
-    });
-
+// Route 1: Save a new user
+app.post('/api/users', async (req, res) => {
+ try {
+    const user = new User(req.body);
     await user.save();
-
-    res.json({
-      message: "Quantum Profile Created",
-      user
-    });
-
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(201).send(user);
+  } catch (err) {
+    res.status(500).send("Error saving user to database");
   }
 });
 
-// 🔹 Quantum Match Engine
-app.get("/quantum/match/:id", async (req, res) => {
+// Route 2: Get all users (to see if it worked)
+app.get('/api/users', async (req, res) => {
   try {
-    const currentUser = await User.findById(req.params.id);
-
-    if (!currentUser) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    const users = await User.find({ _id: { $ne: currentUser._id } });
-
-    if (users.length === 0) {
-      return res.json({ message: "No quantum states available" });
-    }
-
-    let bestMatch = null;
-    let maxScore = -1;
-    let matchDetails = {};
-
-    users.forEach(user => {
-      let score = 0;
-      let commonSkills = [];
-
-      //Skill Entanglement
-      user.skills.forEach(skill => {
-        if (currentUser.skills.includes(skill)) {
-          score += 3;
-          commonSkills.push(skill);
-        }
-      });
-
-      //Intent Matching
-      if (
-        currentUser.lookingFor &&
-        user.skills.includes(currentUser.lookingFor)
-      ) {
-        score += 4;
-      }
-
-      //Experience Sync
-      if (currentUser.experience === user.experience) {
-        score += 2;
-      }
-
-      if (score > maxScore) {
-        maxScore = score;
-        bestMatch = user;
-        matchDetails = { commonSkills };
-      }
-    });
-
-    const percentage = Math.min((maxScore / 15) * 100, 100);
-
-    res.json({
-      _QuantumMatch: bestMatch,
-      score: maxScore,
-      matchPercentage: percentage.toFixed(2) + "%",
-      entanglement: matchDetails
-    });
-
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+    const users = await User.find();
+    res.send(users);
+  } catch (err) {
+    res.status(500).send("Error fetching users");
   }
 });
 
-// Start Server
-app.listen(3000, () => {
-  console.log("Quantum Server running on port 3000");
+// THE MATCHING LOGIC
+
+app.get('/api/match/:id', async (req, res) => {
+  try {
+    // Find the student who is looking for a team
+    const user = await User.findById(req.params.id);
+    if (!user) return res.status(404).send("User not found");
+
+    // Find everyone else
+    const others = await User.find({ _id: { $ne: user._id } });
+
+    // Compare skills and give a score
+    const matches = others.map(other => {
+      const common = other.skills.filter(s => user.skills.includes(s));
+      return { ...other._doc, score: common.length };
+    }).sort((a, b) => b.score - a.score); // Best matches at the top
+
+    res.json(matches);
+  } catch (err) {
+    res.status(500).send("Error calculating matches");
+  }
 });
+
+// Start the server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`🚀 Server running on Port ${PORT}`));
