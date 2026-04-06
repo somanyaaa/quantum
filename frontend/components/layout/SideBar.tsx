@@ -14,7 +14,6 @@ import {
 } from 'lucide-react';
 import * as Avatar from '@radix-ui/react-avatar';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { Button } from '../ui/button';
 
 const HACKATHONS = [
     { id: 1, name: "Google Solution Challenge", date: "April 15", prize: "$10k" },
@@ -103,8 +102,12 @@ const SideBar = ({ currentPage = 'home', setCurrentPage }: any) => {
                             sideOffset={10}
                             align="start"
                         >
-                            <DropdownMenu.Item className="flex items-center gap-2 px-3 py-2 text-xs font-bold text-[#B0E4CC] outline-none hover:bg-[#285A48]/40 rounded-lg cursor-pointer transition-colors">
-                                <User className="w-4 h-4" /> View Profile
+                            <DropdownMenu.Item 
+                                onClick={() => setCurrentPage('profile')} // 1. Add this line
+                                className="flex items-center gap-2 px-3 py-2 text-xs font-bold text-[#B0E4CC] outline-none hover:bg-[#285A48]/40 rounded-lg cursor-pointer transition-colors"
+                            >
+                                <User className="w-4 h-4" /> 
+                                View Profile
                             </DropdownMenu.Item>
                             <DropdownMenu.Item className="flex items-center gap-2 px-3 py-2 text-xs font-bold text-[#B0E4CC] outline-none hover:bg-[#285A48]/40 rounded-lg cursor-pointer transition-colors">
                                 <Settings className="w-4 h-4" /> Settings
