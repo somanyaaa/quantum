@@ -2,28 +2,30 @@ import React from 'react';
 import Image from 'next/image';
 
 interface DevMatchLogoProps {
-  className?: string; // Corrected casing from 'classname'
+  className?: string; 
   size?: 'sm' | 'md' | 'lg' | 'xl';
 }
 
 export default function DevMatchLogo({ className = '', size = 'md' }: DevMatchLogoProps) {
-  // Mapping sizes to actual pixel values for Next.js Image optimization
+  // 1. I slightly increased the base pixel numbers here so the source image is rendered larger
   const dimensions = {
-    sm: 24,
-    md: 48,
-    lg: 96,
-    xl: 192,
+    sm: 32,  
+    md: 56,  
+    lg: 112, 
+    xl: 250,
   };
 
   return (
     <div className={`flex items-center gap-3 ${className}`}>
-      <div className="relative flex items-center justify-center rounded-xl bg-[#285A48] border border-[#408A71]/30 p-1">
+      {/* 2. Changed p-2 to p-1 to reduce the dead space inside the box */}
+      <div className="relative flex items-center justify-center rounded-xl bg-[#285A48] border border-[#408A71]/30 p-1 overflow-hidden">
         <Image 
-          src="/dev-logo.ico"
+          src="/devm-logo.ico"
           alt="DevMatch Logo"
           width={dimensions[size]}
           height={dimensions[size]}
-          className="object-contain"
+          // 3. Added scale-110 to physically stretch the image closer to the box edges
+          className="object-contain scale-110"
           priority
         />
       </div>

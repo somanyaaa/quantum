@@ -1,16 +1,17 @@
 "use client";
 import React, { useState } from 'react';
-import DevMatchLogo from './devmatchlogo';
+import DevMatchLogo from '@/components/devmatchlogo'; 
+import Authmodel from '@/components/Authmodel'; // Updated Name!
 import { ArrowRight } from 'lucide-react';
 
-const Landing = () => {
-    const [showAuthModal, setShowAuthModal] = useState(false);
+const Landing = () => {=
+    const [showAuthmodel, setShowAuthmodel] = useState(false);
     const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
 
-    const openAuthModal = (mode: 'login' | 'signup') => {
+    const openAuthmodel = (mode: 'login' | 'signup') => {
         setAuthMode(mode);
-        setShowAuthModal(true);
-    }
+        setShowAuthmodel(true);
+    };
 
     return (
         <div className="min-h-screen bg-[#091413] text-[#B0E4CC] selection:bg-[#408A71] overflow-hidden relative">
@@ -25,24 +26,22 @@ const Landing = () => {
                 
                 <div className="flex gap-4">
                     <button 
-                        onClick={() => openAuthModal('login')}
+                        onClick={() => openAuthmodel('login')}
                         className="text-[#408A71] font-bold text-sm hover:text-[#B0E4CC] transition-colors"
                     >
                         LOG IN
                     </button>
                     <button 
-                        onClick={() => openAuthModal('signup')}
+                        onClick={() => openAuthmodel('signup')}
                         className="bg-[#B0E4CC] text-[#091413] px-6 py-2.5 rounded-xl font-black text-sm hover:scale-105 transition-all"
                     >
                         SIGN UP
                     </button>
                 </div>
             </nav>
-
-            {/* --- HERO SECTION --- */}
-            <main className="flex flex-col items-center justify-center pt-16 pb-12 px-6 text-center">
-                <div className="mb-6 px-4 py-1 border border-[#408A71]/30 rounded-full bg-[#285A48]/10 text-[#408A71] text-[10px] font-black tracking-widest uppercase">
-                    Hackathon Matchmaking // Beta 1.0
+            <main className="flex flex-col items-center justify-center pt-16 pb-12 px-6 text-center z-10 relative">
+                <div className="mb-6 px-4 py-1 border border-[#408A71]/30 rounded-full bg-[#285A48]/10 text-[#408A71] text-[10px] font-black tracking-widest uppercase shadow-sm">
+                    Hackathon Matchmaking
                 </div>
 
                 <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-8 leading-[0.9]">
@@ -58,38 +57,23 @@ const Landing = () => {
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-5">
-                    <button className="group px-10 py-5 bg-[#B0E4CC] text-[#091413] rounded-2xl font-black text-xl flex items-center gap-3 hover:shadow-[0_0_30px_-5px_#B0E4CC] transition-all">
+                    <button 
+                        onClick={() => openAuthmodel('signup')}
+                        className="group px-10 py-5 bg-[#B0E4CC] text-[#091413] rounded-2xl font-black text-xl flex items-center justify-center gap-3 hover:shadow-[0_0_30px_-5px_#B0E4CC] transition-all"
+                    >
                         Start Matching
                         <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
                     </button>
                 </div>
             </main>
-
-            {/* --- AUTH MODAL (Conditional Rendering) --- */}
-            {showAuthModal && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-[#091413]/80 backdrop-blur-sm">
-                    <div className="bg-[#285A48]/20 border border-[#408A71]/30 p-8 rounded-3xl max-w-md w-full relative">
-                        <button 
-                            onClick={() => setShowAuthModal(false)}
-                            className="absolute top-4 right-4 text-[#408A71] hover:text-[#B0E4CC]"
-                        >
-                            ✕
-                        </button>
-                        <h2 className="text-3xl font-black mb-6 uppercase tracking-tighter">
-                            {authMode === 'login' ? 'Welcome Back' : 'Join the Squad'}
-                        </h2>
-                        {/* Placeholder for your Login/Signup forms */}
-                        <div className="space-y-4">
-                            <input className="w-full bg-[#091413] border border-[#285A48] rounded-xl px-4 py-3 focus:border-[#B0E4CC] outline-none" placeholder="Email" />
-                            <button className="w-full bg-[#B0E4CC] text-[#091413] font-black py-3 rounded-xl uppercase tracking-widest">
-                                {authMode === 'login' ? 'Enter' : 'Create Profile'}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
+            <Authmodel 
+                isOpen={showAuthmodel} 
+                onClose={() => setShowAuthmodel(false)} 
+                initialMode={authMode} 
+            />
+            
         </div>
-    )
-}
+    );
+};
 
 export default Landing;
