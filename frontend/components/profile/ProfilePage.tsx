@@ -1,8 +1,8 @@
 "use client";
 import React, { useState, useRef } from 'react';
 import { 
-    Mail, MapPin, Calendar, Pencil, Terminal, Award, 
-    Briefcase, Check, User as UserIcon, Camera, X, Plus, ExternalLink, 
+    Mail, MapPin, Calendar, Pencil, Terminal,
+    Check, User as UserIcon, Camera, X, Plus, ExternalLink, 
     Heart, Zap, Code2, Globe 
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
@@ -22,7 +22,7 @@ const TwitterIcon = (props: any) => (
 
 
 const ProfilePage = () => {
-    const { user } = useAuth() as {user:any};
+    const { user, updateUser } = useAuth() as any;
     const [isEditingName, setIsEditingName] = useState(false);
     const [isEditingBio, setIsEditingBio] = useState(false);
     const [tempName, setTempName] = useState(user?.username || "Guest_Coder");
@@ -31,7 +31,7 @@ const ProfilePage = () => {
     const stats = [
     { 
         label: "Matches", 
-        value: user?.matchCount ?? "0", // Uses 0 if matchCount is missing
+        value: user?.matchCount ?? "0",
         icon: Heart, 
         color: "text-[#B0E4CC]" 
     },
@@ -100,11 +100,20 @@ const ProfilePage = () => {
                                     autoFocus
                                 />
                                 <div className="flex gap-1 pr-1">
-                                    <button onClick={() => setIsEditingName(false)} className="p-2 bg-[#B0E4CC] rounded-xl text-[#091413]"><Check className="w-5 h-5" /></button>
+                                    <button 
+                                        onClick={() => {
+                                            updateUser({ username: tempName });
+                                            setIsEditingName(false);
+                                            
+                                        }} 
+                                        className="p-2.5 bg-[#B0E4CC] rounded-2xl text-[#091413] hover:scale-105 transition-transform"
+                                    >
+                                        <Check className="w-5 h-5" />
+                                    </button>
                                     <button onClick={() => { setIsEditingName(false); setTempName(user?.username); }} className="p-2 bg-red-500/20 rounded-xl text-red-300"><X className="w-5 h-5" /></button>
                                 </div>
                             </div>
-                        ) : (
+                            ) : (
                             <>
                                 <h1 className="text-6xl font-black italic tracking-tighter text-[#B0E4CC]">{tempName}</h1>
                                 <button onClick={() => setIsEditingName(true)} className="p-2.5 bg-[#285A48]/10 border border-[#285A48]/20 rounded-2xl hover:border-[#A855F7]/50 transition-all">
@@ -142,12 +151,8 @@ const ProfilePage = () => {
                     </div>
                 ))}
             </div>
-
-            {/* 3. CONTENT SECTIONS */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div className="lg:col-span-2 space-y-6">
-                    
-                    {/* MISSION LOG - Fixed Alignment & Edit Logic */}
                     <section className="bg-[#285A48]/5 border border-[#285A48]/20 p-8 rounded-[2.5rem] relative overflow-hidden group">
                         <div className="flex items-center justify-between mb-8">
                             <div className="flex items-center gap-4">
@@ -156,10 +161,13 @@ const ProfilePage = () => {
                                 </div>
                                 <h2 className="text-3xl font-black italic text-[#B0E4CC] tracking-tighter leading-tight">Mission Log</h2>
                             </div>
-                            
-                            {/* Persistent Edit Button */}
                             <button 
-                                onClick={() => setIsEditingBio(!isEditingBio)}
+                                onClick={() => {
+                                    if (isEditingBio) {
+                                        updateUser({ bio: tempBio });
+                                    }
+                                    setIsEditingBio(!isEditingBio);
+                                }}
                                 className={`p-2 rounded-xl transition-all ${isEditingBio ? 'bg-[#A855F7] text-white' : 'bg-[#285A48]/10 text-[#408A71] hover:text-[#A855F7]'}`}
                             >
                                 {isEditingBio ? <Check className="w-4 h-4" /> : <Pencil className="w-4 h-4" />}

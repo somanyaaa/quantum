@@ -15,20 +15,30 @@ export interface User {
 
 interface AuthContextType {
     user: User | null;
+    updateUser: (data: any) => void;
     isLoading: boolean; // 1. Add this to the type
     isAuthenticated: boolean;
     login: (email: string, password: string) => Promise<void>;
     signup: (username: string, email: string, password: string) => Promise<void>;
     logout: () => void;
     updateProfile: (updatedData: Partial<User>) => void; 
+
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
+
     const [isLoading, setLoading] = useState(true);
     const [user, setUser] = useState<User | null>(null);
     
+    const updateUser = (newData: Partial<any>) => {
+        setUser((prevUser: any) => {
+            if (!prevUser) return null;
+            return { ...prevUser, ...newData };
+        });
+    };
+
     useEffect(() => {
         const savedUser = localStorage.getItem('devmatch_user');
         if (savedUser) {
@@ -84,6 +94,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             isLoading, // 2. Provide the loading state
             isAuthenticated: !!user, 
             login, 
+            updateUser,
             signup, 
             logout, 
             updateProfile 

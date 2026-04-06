@@ -78,7 +78,6 @@ const SideBar = ({ currentPage = 'home', setCurrentPage }: any) => {
                 </div>
             </div>
 
-            {/* 4. Footer with Dropdown User Menu */}
             <div className="pt-6 border-t border-[#285A48]/30 mt-6">
                 <DropdownMenu.Root>
                     <DropdownMenu.Trigger asChild>
@@ -91,7 +90,6 @@ const SideBar = ({ currentPage = 'home', setCurrentPage }: any) => {
                             </Avatar.Root>
                             <div className="flex-1 overflow-hidden">
                                 <p className="font-black text-sm truncate">{user?.username || "Guest Coder"}</p>
-                                <p className="text-[10px] text-[#408A71] uppercase font-bold italic">Lvl 1 Coder</p>
                             </div>
                         </button>
                     </DropdownMenu.Trigger>
