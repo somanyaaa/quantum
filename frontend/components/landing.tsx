@@ -4,7 +4,7 @@ import DevMatchLogo from '@/components/devmatchlogo';
 import Authmodel from '@/components/Authmodel'; // Updated Name!
 import { ArrowRight } from 'lucide-react';
 
-const Landing = () => {=
+const Landing = () => {
     const [showAuthmodel, setShowAuthmodel] = useState(false);
     const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
 

@@ -1,9 +1,11 @@
-import Image from "next/image";
 import Landing from "@/components/landing";
+import MainLayout from "@/components/layout/MainLayout";
 export default function Home() {
   return (
     <div>
-      <Landing/>
+      <MainLayout>
+        <Landing />
+      </MainLayout>
       
     </div>
   );

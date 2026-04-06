@@ -67,7 +67,6 @@ export default function OnboardingPage() {
                     </p>
                 </div>
 
-                {/* --- SECTION 1: THE DEVELOPER --- */}
                 <div className="bg-[#285A48]/10 border border-[#408A71]/30 rounded-3xl p-8 mb-8 shadow-xl">
                     <div className="flex items-center gap-3 mb-6">
                         <User className="text-[#408A71] w-6 h-6" />
@@ -75,7 +74,6 @@ export default function OnboardingPage() {
                     </div>
                     
                     <div className="space-y-6">
-                        {/* Name Input */}
                         <div>
                             <label className="block text-[#408A71] text-sm font-bold uppercase tracking-widest mb-2">Display Name</label>
                             <input 
@@ -86,7 +84,6 @@ export default function OnboardingPage() {
                             />
                         </div>
 
-                        {/* Experience Selector */}
                         <div>
                             <label className="block text-[#408A71] text-sm font-bold uppercase tracking-widest mb-2">Experience Level</label>
                             <div className="grid grid-cols-3 gap-3">
@@ -108,7 +105,6 @@ export default function OnboardingPage() {
                     </div>
                 </div>
 
-                {/* --- SECTION 2: THE TECH STACK --- */}
                 <div className="bg-[#285A48]/10 border border-[#408A71]/30 rounded-3xl p-8 mb-8 shadow-xl">
                     <div className="flex items-center justify-between mb-6">
                         <div className="flex items-center gap-3">
@@ -139,7 +135,6 @@ export default function OnboardingPage() {
                     </div>
                 </div>
 
-                {/* --- SECTION 3: SQUAD NEEDS --- */}
                 <div className="bg-[#285A48]/10 border border-[#408A71]/30 rounded-3xl p-8 mb-12 shadow-xl">
                     <div className="flex items-center gap-3 mb-6">
                         <Users className="text-[#408A71] w-6 h-6" />
@@ -147,7 +142,7 @@ export default function OnboardingPage() {
                     </div>
 
                     <div className="space-y-8">
-                        {/* Teammates Needed Input */}
+                
                         <div>
                             <label className="block text-[#408A71] text-sm font-bold uppercase tracking-widest mb-2">
                                 How many teammates do you need? <span className="opacity-50 font-normal lowercase">(optional)</span>
@@ -163,7 +158,6 @@ export default function OnboardingPage() {
                             />
                         </div>
 
-                        {/* Seeking Skills */}
                         <div>
                             <div className="flex justify-between items-end mb-3">
                                 <label className="block text-[#408A71] text-sm font-bold uppercase tracking-widest">
@@ -195,7 +189,6 @@ export default function OnboardingPage() {
                     </div>
                 </div>
 
-                {/* --- SUBMIT BUTTON --- */}
                 <div className="flex justify-center pb-10">
                     <button 
                         onClick={handleCompleteProfile}

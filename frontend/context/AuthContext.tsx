@@ -12,17 +12,18 @@ export interface User {
 
 interface AuthContextType {
     user: User | null;
+    isLoading: boolean; // 1. Add this to the type
     isAuthenticated: boolean;
     login: (email: string, password: string) => Promise<void>;
     signup: (username: string, email: string, password: string) => Promise<void>;
     logout: () => void;
-    // 1. Added updateProfile to the interface, using Partial<User> so you can update just 1 or 2 fields at a time
     updateProfile: (updatedData: Partial<User>) => void; 
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
+    const [isLoading, setLoading] = useState(true);
     const [user, setUser] = useState<User | null>(null);
     
     useEffect(() => {
@@ -30,6 +31,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (savedUser) {
             setUser(JSON.parse(savedUser));
         }
+        setLoading(false);
     }, []);
 
     const login = async (email: string, password: string) => {
@@ -74,7 +76,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
     
     return (
-        <AuthContext.Provider value={{ user, isAuthenticated: !!user, login, signup, logout, updateProfile }}>
+        <AuthContext.Provider value={{ 
+            user, 
+            isLoading, // 2. Provide the loading state
+            isAuthenticated: !!user, 
+            login, 
+            signup, 
+            logout, 
+            updateProfile 
+        }}>
             {children}
         </AuthContext.Provider>
     );
