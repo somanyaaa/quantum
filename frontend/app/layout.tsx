@@ -18,6 +18,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "DevMatch",
   description: "Commit to the perfect team.",
+  icons: {
+    icon: "/dev-logo.ico",
+  }
 };
 
 export default function RootLayout({
