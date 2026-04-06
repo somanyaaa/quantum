@@ -29,7 +29,7 @@ export default function RootLayout({
       lang="en"
       className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
     >
-      <body className="h-full overflow-hidden margin-0">
+      <body className="min-h-screen antialiased bg-[#091413]">
         <AuthProvider>
           <MainLayout> 
             {children}
