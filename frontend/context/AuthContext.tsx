@@ -8,6 +8,9 @@ export interface User {
     bio: string;
     email: string;
     skills?: string[];
+    age?: number | string;
+    location?: string;
+    matchCount?: number;joinedDate?: string;
 }
 
 interface AuthContextType {
