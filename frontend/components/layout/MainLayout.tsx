@@ -11,12 +11,11 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     const pathname = usePathname();
     const [currentPage, setCurrentPage] = React.useState('home');
 
-    // 1. Add your profile creation route to this list
     const hideSidebarRoutes = [
         '/login', 
         '/signup', 
         '/', 
-        '/create-profile', // Add whatever your actual path is here
+        '/create-profile',
         '/onboarding'
     ];
 
@@ -30,15 +29,13 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         )
     }
 
-    // 2. If it's a "No Sidebar" page OR user isn't logged in, just show content
     if (shouldHideSidebar) {
         return <>{children}</>;
     }
-
-    // 3. The "Matchmaking" world - Sidebar is now active
+    
     return (
         <div className="min-h-screen bg-[#091413] text-[#B0E4CC] flex overflow-hidden">
-            <SideBar currentPage={currentPage} setCurrentPage={setCurrentPage} />
+            <SideBar currentPage={currentPage} onNavigate={setCurrentPage} />
             <main className="flex-1 overflow-y-auto">
                 {children}
             </main>
