@@ -7,5 +7,4 @@ const MatchesView = () => {
     </div>
   )
 }
-
 export default MatchesView

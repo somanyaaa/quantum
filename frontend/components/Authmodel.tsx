@@ -46,11 +46,9 @@ export default function Authmodel({ isOpen, onClose, initialMode }: AuthmodelPro
                 newErrors.username = "Only letters, numbers, and underscores.";
             }
         }
-
         setError(newErrors);
         return Object.keys(newErrors).length === 0;
     };
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!validateForm()) {

@@ -22,7 +22,6 @@ export default function DevMatchLogo({ className = '', size = 'md' }: DevMatchLo
           alt="DevMatch Logo"
           width={dimensions[size]}
           height={dimensions[size]}
-          // 3. Added scale-110 to physically stretch the image closer to the box edges
           className="object-contain scale-110"
           priority
         />

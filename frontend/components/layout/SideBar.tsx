@@ -30,7 +30,7 @@ const SideBar = ({ currentPage = 'home', setCurrentPage }: any) => {
     ];
     return (
         <div className="w-80 h-full flex flex-col bg-[#091413] p-6 text-[#B0E4CC] border-r border-[#285A48]/20">
-            {/* 1. Logo Section */}
+            {/* Logo Section */}
             <div className="flex items-center gap-3 mb-10 px-2">
                 <div className="w-10 h-10 bg-[#B0E4CC] rounded-xl flex items-center justify-center shadow-[0_0_15px_-3px_#B0E4CC]">
                     <Code2 className="w-6 h-6 text-[#091413]" />
@@ -38,7 +38,7 @@ const SideBar = ({ currentPage = 'home', setCurrentPage }: any) => {
                 <h1 className="text-2xl font-black italic tracking-tighter">DEV<span className="text-[#408A71]">MATCH</span></h1>
             </div>
 
-            {/* 2. Main Navigation (Mapped) */}
+            {/* Main Navigation*/}
             <nav className="space-y-1 mb-10">
                 <p className="text-[10px] text-[#408A71] font-black uppercase tracking-[0.2em] mb-4 px-2">Menu</p>
                 {navigation.map((item) => (
@@ -57,7 +57,7 @@ const SideBar = ({ currentPage = 'home', setCurrentPage }: any) => {
                 ))}
             </nav>
 
-            {/* 3. Hackathon Feed Section */}
+            {/* Hackathon Feed Section */}
             <div className="flex-1 overflow-y-auto no-scrollbar">
                 <div className="flex items-center justify-between mb-4 px-2">
                     <p className="text-[10px] text-[#408A71] font-black uppercase tracking-[0.2em]">Upcoming Hackathons</p>
@@ -122,7 +122,6 @@ const SideBar = ({ currentPage = 'home', setCurrentPage }: any) => {
                     </DropdownMenu.Portal>
                 </DropdownMenu.Root>
             </div>
-
             <div className="mb-8 h-[380px] w-full bg-[#091413]/30 rounded-2xl border border-[#285A48]/20 relative overflow-hidden group/chart">
               <div className="absolute inset-0 flex items-center justify-center opacity-100 transition-opacity">
                 <SynergyChart/>
@@ -131,5 +130,4 @@ const SideBar = ({ currentPage = 'home', setCurrentPage }: any) => {
         </div>
     )
 }
-
 export default SideBar;

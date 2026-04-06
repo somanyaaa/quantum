@@ -48,9 +48,7 @@ export default function OnboardingPage() {
         });
         router.push('/dashboard');
     };
-
     const isFormValid = name.trim() !== '' && experience !== '' && mySkills.length > 0;
-
     return (
         <div className="min-h-screen bg-[#091413] text-[#B0E4CC] selection:bg-[#408A71] pb-24">
             <nav className="p-6 border-b border-[#285A48]/30 flex justify-center sticky top-0 bg-[#091413]/80 backdrop-blur-md z-50">
@@ -71,8 +69,7 @@ export default function OnboardingPage() {
                     <div className="flex items-center gap-3 mb-6">
                         <User className="text-[#408A71] w-6 h-6" />
                         <h2 className="text-2xl font-bold text-[#B0E4CC]">The Developer</h2>
-                    </div>
-                    
+                    </div>  
                     <div className="space-y-6">
                         <div>
                             <label className="block text-[#408A71] text-sm font-bold uppercase tracking-widest mb-2">Display Name</label>
@@ -104,7 +101,6 @@ export default function OnboardingPage() {
                         </div>
                     </div>
                 </div>
-
                 <div className="bg-[#285A48]/10 border border-[#408A71]/30 rounded-3xl p-8 mb-8 shadow-xl">
                     <div className="flex items-center justify-between mb-6">
                         <div className="flex items-center gap-3">
@@ -134,7 +130,6 @@ export default function OnboardingPage() {
                         })}
                     </div>
                 </div>
-
                 <div className="bg-[#285A48]/10 border border-[#408A71]/30 rounded-3xl p-8 mb-12 shadow-xl">
                     <div className="flex items-center gap-3 mb-6">
                         <Users className="text-[#408A71] w-6 h-6" />
@@ -142,7 +137,6 @@ export default function OnboardingPage() {
                     </div>
 
                     <div className="space-y-8">
-                
                         <div>
                             <label className="block text-[#408A71] text-sm font-bold uppercase tracking-widest mb-2">
                                 How many teammates do you need? <span className="opacity-50 font-normal lowercase">(optional)</span>
@@ -199,7 +193,6 @@ export default function OnboardingPage() {
                         {!isSubmitting && <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />}
                     </button>
                 </div>
-                
             </main>
         </div>
     );

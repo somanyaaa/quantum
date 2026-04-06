@@ -20,8 +20,6 @@ const TwitterIcon = (props: any) => (
   </svg>
 );
 
-
-
 const ProfilePage = () => {
     const [showChart, setShowChart] = useState(false);  
     React.useEffect(() => {
@@ -61,7 +59,6 @@ const ProfilePage = () => {
         { name: "DevMatch Beta", link: "#", tech: "Next.js 15", status: "Active" },
         { name: "Twitter Clone", link: "https://github.com/your-repo/twitter", tech: "React + Tailwind", status: "Completed" }
     ];
-
     const experiences = [
         { 
             role: "Full Stack Intern", 
@@ -74,11 +71,9 @@ const ProfilePage = () => {
             duration: "2023 - 2027" 
         }
     ];
-
     const handleAvatarClick = () => {
         fileInputRef.current?.click();
     };
-
     const calculateTotalScore = () => {
         const commitScore = Math.min((user?.totalCommits || 150) / 10, 30);
         const projectScore = projects.reduce((acc, proj) => {
@@ -214,7 +209,6 @@ const ProfilePage = () => {
                         </div>
                     </div>
 
-                    {/* Reduced height to 140px to keep it tight */}
                     <div className="w-full h-[140px] relative flex items-center justify-center overflow-visible">
                         {isMounted && (
                             <SynergyChart 

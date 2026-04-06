@@ -1,5 +1,4 @@
 "use client";
-import React from 'react';
 import { 
   Radar, RadarChart, PolarGrid, 
   PolarAngleAxis, ResponsiveContainer, PolarRadiusAxis 
@@ -68,5 +67,4 @@ const SynergyChart = ({ userStats, matchStats }: any) => {
         </div>
     );
 };
-
 export default SynergyChart;

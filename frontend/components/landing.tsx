@@ -7,12 +7,10 @@ import { ArrowRight } from 'lucide-react';
 const Landing = () => {
     const [showAuthmodel, setShowAuthmodel] = useState(false);
     const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
-
     const openAuthmodel = (mode: 'login' | 'signup') => {
         setAuthMode(mode);
         setShowAuthmodel(true);
     };
-
     return (
         <div className="min-h-screen bg-[#091413] text-[#B0E4CC] selection:bg-[#408A71] overflow-hidden relative">
             
@@ -68,10 +66,8 @@ const Landing = () => {
                 isOpen={showAuthmodel} 
                 onClose={() => setShowAuthmodel(false)} 
                 initialMode={authMode} 
-            />
-            
+            />          
         </div>
     );
 };
-
 export default Landing;

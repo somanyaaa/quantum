@@ -60,7 +60,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(mockUser);
         localStorage.setItem('devmatch_user', JSON.stringify(mockUser));
     };
-
     const signup = async (username: string, email: string, password: string) => {
         await new Promise(resolve => setTimeout(resolve, 1000));
         const mockUser: User = {
@@ -103,7 +102,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         </AuthContext.Provider>
     );
 }
-
 export function useAuth() {
     const context = useContext(AuthContext);
     if (context === null) {

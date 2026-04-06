@@ -23,7 +23,6 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     ];
 
     const shouldHideSidebar = hideSidebarRoutes.includes(pathname) || !user;
-
     if (isLoading) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-[#091413]">
@@ -31,11 +30,9 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             </div>
         )
     }
-
     if (shouldHideSidebar) {
         return <>{children}</>;
     }
-    
     return (
         <div className="h-screen w-full bg-[#091413] text-[#B0E4CC] flex items-start overflow-hidden">
             <SideBar currentPage={currentPage} setCurrentPage={setCurrentPage} />
