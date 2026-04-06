@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   title: "DevMatch",
   description: "Commit to the perfect team.",
   icons: {
-    icon: "/devm-logo.ico",
+    icon: "/dev-logo.ico",
   }
 };
 

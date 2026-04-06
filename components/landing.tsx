@@ -16,11 +16,9 @@ const Landing = () => {
     return (
         <div className="min-h-screen bg-[#091413] text-[#B0E4CC] selection:bg-[#408A71] overflow-hidden relative">
             
-            {/* Background Glows */}
             <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-[#285A48]/20 blur-[120px] rounded-full -z-10"></div>
             <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-[#408A71]/10 blur-[120px] rounded-full -z-10"></div>
 
-            {/* --- NAVBAR --- */}
             <nav className="flex items-center justify-between px-8 py-6 border-b border-[#285A48]/20 backdrop-blur-md sticky top-0 z-50">
                 <DevMatchLogo size="md" />
                 
