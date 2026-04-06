@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import SynergyChart from '../charts/SynergyChart';
 import { 
     Mail, MapPin, Calendar, Pencil, Terminal,
     Check, User as UserIcon, Camera, X, Plus, ExternalLink, 
@@ -22,7 +23,15 @@ const TwitterIcon = (props: any) => (
 
 
 const ProfilePage = () => {
+    const [showChart, setShowChart] = useState(false);  
+    React.useEffect(() => {
+        setShowChart(true);
+    }, []);
     const { user, updateUser } = useAuth() as any;
+    const [isMounted, setIsMounted] = useState(false);
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
     const [isEditingName, setIsEditingName] = useState(false);
     const [isEditingBio, setIsEditingBio] = useState(false);
     const [tempName, setTempName] = useState(user?.username || "Guest_Coder");
@@ -69,9 +78,22 @@ const ProfilePage = () => {
     const handleAvatarClick = () => {
         fileInputRef.current?.click();
     };
+
+    const calculateTotalScore = () => {
+        const commitScore = Math.min((user?.totalCommits || 150) / 10, 30);
+        const projectScore = projects.reduce((acc, proj) => {
+            let points = 10;
+            if (proj.status === "Completed") points += 5;
+            if (proj.tech.includes("Next.js") || proj.tech.includes("TypeScript")) points += 5;
+            return acc + points;
+        }, 0);
+        const finalProjectScore = Math.min(projectScore, 40);
+        const langScore = Math.min((user?.skills?.length || 5) * 6, 30);
+        return Math.round(commitScore + finalProjectScore + langScore);
+    };
+    const totalScore = calculateTotalScore();
     return (
-        <div className="w-full max-w-5xl mx-auto px-6 md:px-12 space-y-10 pt-10 pb-20 animate-in fade-in duration-500">
-            
+        <div className="w-full max-w-5xl mx-auto px-6 md:px-12 space-y-10 pt-10 pb-20 animate-in fade-in duration-500">            
             {/* 1. IDENTITY HEADER */}
             <header className="flex flex-col md:flex-row items-center md:items-start gap-10 pb-12 border-b border-[#285A48]/20">
                 <div className="relative shrink-0 group cursor-pointer" onClick={handleAvatarClick}>
@@ -116,6 +138,10 @@ const ProfilePage = () => {
                             ) : (
                             <>
                                 <h1 className="text-6xl font-black italic tracking-tighter text-[#B0E4CC]">{tempName}</h1>
+                                <div className="flex flex-col items-center justify-center bg-[#A855F7]/10 border border-[#A855F7]/40 px-4 py-1 rounded-2xl shadow-[0_0_20px_rgba(168,85,247,0.15)]">
+                                    <span className="text-[10px] font-black uppercase text-[#A855F7] tracking-widest">Synergy Score</span>
+                                    <span className="text-2xl font-black text-[#B0E4CC]">{totalScore}</span>
+                                </div>
                                 <button onClick={() => setIsEditingName(true)} className="p-2.5 bg-[#285A48]/10 border border-[#285A48]/20 rounded-2xl hover:border-[#A855F7]/50 transition-all">
                                     <Pencil className="w-5 h-5 text-[#408A71]" />
                                 </button>
@@ -151,6 +177,51 @@ const ProfilePage = () => {
                     </div>
                 ))}
             </div>
+
+            {/* --- SYNERGY PULSE SECTION --- */}
+            <section className="bg-[#285A48]/5 border border-[#285A48]/20 py-3 px-6 rounded-[2rem] shadow-sm hover:border-[#A855F7]/30 transition-all">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-center">
+                    
+                    <div className="space-y-2"> {/* Tightened spacing */}
+                        <div className="flex items-center gap-2">
+                            <div className="p-1.5 bg-[#A855F7]/10 rounded-xl border border-[#A855F7]/20">
+                                <Zap className="w-4 h-4 text-[#A855F7]" />
+                            </div>
+                            <div>
+                                <h2 className="text-xl font-black italic text-[#B0E4CC] tracking-tighter leading-none">Synergy Pulse</h2>
+                                <p className="text-[#408A71] text-[8px] font-bold uppercase tracking-widest mt-0.5">Live Match Analytics</p>
+                            </div>
+                        </div>
+                        <p className="text-[#408A71] text-xs font-medium leading-tight">
+                            Your technical DNA compared to the platform average.
+                        </p>
+
+                        <div className="bg-[#091413] border border-[#285A48]/30 p-2 rounded-xl">
+                            <div className="flex justify-between items-end mb-1">
+                                <span className="text-[8px] font-black text-[#408A71] uppercase tracking-widest">Compatibility</span>
+                                <span className="text-lg font-black text-[#B0E4CC] italic">{totalScore}%</span>
+                            </div>
+                            <div className="w-full h-1 bg-[#285A48]/20 rounded-full overflow-hidden">
+                                <div 
+                                    className="h-full bg-gradient-to-r from-[#B0E4CC] to-[#A855F7] transition-all duration-1000" 
+                                    style={{ width: `${totalScore}%` }}
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Reduced height to 140px to keep it tight */}
+                    <div className="w-full h-[140px] relative flex items-center justify-center overflow-visible">
+                        {isMounted && (
+                            <SynergyChart 
+                                userStats={{ syntax: 85, velocity: 92, depth: 70, pulse: 100, impact: 65 }}
+                                matchStats={{ syntax: 75, velocity: 80, depth: 90, pulse: 85, impact: 70 }}
+                            />
+                        )}
+                    </div>
+                </div>
+            </section>
+                
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div className="lg:col-span-2 space-y-6">
                     <section className="bg-[#285A48]/5 border border-[#285A48]/20 p-8 rounded-[2.5rem] relative overflow-hidden group">

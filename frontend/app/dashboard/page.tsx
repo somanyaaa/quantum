@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from 'react';
-import { X, Heart, Code2, Sparkles, MessageSquare } from 'lucide-react';
-
+import { X, Heart, Code2, Sparkles, Zap } from 'lucide-react';
+import SynergyChart from '@/components/charts/SynergyChart';
 const POTENTIAL_MATCHES = [
     {
         id: 1,
@@ -11,7 +11,6 @@ const POTENTIAL_MATCHES = [
         experience: "Intermediate",
         skills: ["React", "Next.js", "Tailwind CSS"],
         bio: "Looking for a backend genius to build a fintech app. I make things look pretty.",
-        matchScore: 98
     },
     {
         id: 2,
@@ -20,7 +19,6 @@ const POTENTIAL_MATCHES = [
         experience: "Advanced",
         skills: ["Node.js", "MongoDB", "TypeScript", "React"],
         bio: "Third hackathon this year. Let's win this thing. I can carry the API architecture.",
-        matchScore: 85
     },
     {
         id: 3,
@@ -28,8 +26,7 @@ const POTENTIAL_MATCHES = [
         role: "AI/ML Engineer",
         experience: "Advanced",
         skills: ["Python", "Machine Learning", "Figma"],
-        bio: "Have an OpenAI API key and a dream. Need someone to build the UI for my wrapper.",
-        matchScore: 72
+        bio: "Have an OpenAI API key and a dream. Need someone to build the UI for my wrapper."
     }
 ];
 
@@ -70,12 +67,6 @@ export default function DashboardPage() {
             {currentProfile ? (
                 <div className="w-full max-w-md animate-in slide-in-from-bottom-8 fade-in duration-500">
                     <div className="bg-[#285A48]/20 border border-[#408A71]/30 rounded-[2rem] p-8 shadow-2xl relative overflow-hidden backdrop-blur-sm">
-                        
-                        <div className="absolute top-6 right-6 px-3 py-1 bg-[#091413]/50 border border-[#B0E4CC]/30 rounded-full flex items-center gap-1.5 backdrop-blur-md">
-                            <Sparkles className="w-3 h-3 text-[#B0E4CC]" />
-                            <span className="text-[#B0E4CC] text-xs font-black">{currentProfile.matchScore}% Match</span>
-                        </div>
-
                         <div className="mt-8 mb-6">
                             <h2 className="text-4xl font-black text-[#B0E4CC] mb-1 tracking-tight">{currentProfile.name}</h2>
                             <p className="text-[#408A71] font-bold text-sm uppercase tracking-widest">{currentProfile.role}</p>
@@ -85,6 +76,24 @@ export default function DashboardPage() {
                         <p className="text-[#B0E4CC]/90 mb-8 leading-relaxed text-lg">
                             "{currentProfile.bio}"
                         </p>
+                        <div className="mb-8 h-[360px] w-full bg-[#091413]/30 rounded-2xl border border-[#285A48]/20 overflow-hidden">
+                            <div className="w-full h-full p-4 flex items-center justify-center">
+                                <SynergyChart 
+                                    userStats={{ syntax: 80, velocity: 90, depth: 70, pulse: 100, impact: 60 }}
+                                    matchStats={{ 
+                                        syntax: currentProfile.id * 20, // Mock dynamic data based on ID
+                                        velocity: 70, 
+                                        depth: 85, 
+                                        pulse: 90, 
+                                        impact: 50 
+                                    }}
+                                />
+                            </div>
+                            <div className="absolute top-3 left-4 flex items-center gap-2">
+                                <Zap className="w-3 h-3 text-[#A855F7]" />
+                                <span className="text-[10px] font-black uppercase tracking-widest text-[#408A71]">Compatibility Pulse</span>
+                            </div>
+                        </div>
 
                         <div className="mb-10">
                             <div className="flex items-center gap-2 mb-3">

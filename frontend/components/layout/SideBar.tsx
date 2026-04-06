@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import * as Avatar from '@radix-ui/react-avatar';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import SynergyChart from '../charts/SynergyChart';
 
 const HACKATHONS = [
     { id: 1, name: "Google Solution Challenge", date: "April 15", prize: "$10k" },
@@ -120,6 +121,12 @@ const SideBar = ({ currentPage = 'home', setCurrentPage }: any) => {
                         </DropdownMenu.Content>
                     </DropdownMenu.Portal>
                 </DropdownMenu.Root>
+            </div>
+
+            <div className="mb-8 h-[380px] w-full bg-[#091413]/30 rounded-2xl border border-[#285A48]/20 relative overflow-hidden group/chart">
+              <div className="absolute inset-0 flex items-center justify-center opacity-100 transition-opacity">
+                <SynergyChart/>
+              </div>
             </div>
         </div>
     )
