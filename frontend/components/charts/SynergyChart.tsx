@@ -37,7 +37,7 @@ const SynergyChart = ({ userStats, matchStats }: any) => {
                 <RadarChart
                     cx="50%"
                     cy="50%"
-                    outerRadius="60%"
+                    outerRadius="70%"
                     data={data}
                     margin={{ top: 10, right: 30, left: 30, bottom: 10 }}
                 >

@@ -182,14 +182,18 @@ const ProfilePage = () => {
             <section className="bg-[#285A48]/5 border border-[#285A48]/20 py-3 px-6 rounded-[2rem] shadow-sm hover:border-[#A855F7]/30 transition-all">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-center">
                     
-                    <div className="space-y-2"> {/* Tightened spacing */}
-                        <div className="flex items-center gap-2">
-                            <div className="p-1.5 bg-[#A855F7]/10 rounded-xl border border-[#A855F7]/20">
+                    <div className="space-y-2">
+                        <div className="flex items-center gap-3 pl-4"> 
+                            <div className="p-1.5 bg-[#A855F7]/10 rounded-xl border border-[#A855F7]/20 shrink-0">
                                 <Zap className="w-4 h-4 text-[#A855F7]" />
                             </div>
                             <div>
-                                <h2 className="text-xl font-black italic text-[#B0E4CC] tracking-tighter leading-none">Synergy Pulse</h2>
-                                <p className="text-[#408A71] text-[8px] font-bold uppercase tracking-widest mt-0.5">Live Match Analytics</p>
+                                <h2 className="text-xl font-black italic text-[#B0E4CC] tracking-tighter leading-none">
+                                    Synergy Pulse
+                                </h2>
+                                <p className="text-[#408A71] text-[8px] font-bold uppercase tracking-widest mt-1 opacity-80">
+                                    Live Match Analytics
+                                </p>
                             </div>
                         </div>
                         <p className="text-[#408A71] text-xs font-medium leading-tight">
