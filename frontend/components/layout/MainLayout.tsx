@@ -1,4 +1,4 @@
-"use client"; // Required for hooks like useAuth and usePathname
+"use client";
 
 import React from 'react'
 import { useAuth } from '@/context/AuthContext';
@@ -11,8 +11,16 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     const pathname = usePathname();
     const [currentPage, setCurrentPage] = React.useState('home');
 
-    // 1. Determine if we are on a "Public" page (No Sidebar needed)
-    const isPublicPage = pathname === '/login' || pathname === '/signup' || pathname === '/';
+    // 1. Add your profile creation route to this list
+    const hideSidebarRoutes = [
+        '/login', 
+        '/signup', 
+        '/', 
+        '/create-profile', // Add whatever your actual path is here
+        '/onboarding'
+    ];
+
+    const shouldHideSidebar = hideSidebarRoutes.includes(pathname) || !user;
 
     if (isLoading) {
         return (
@@ -22,12 +30,12 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         )
     }
 
-    // 2. If it's a public page OR user isn't logged in, just show the page content
-    if (isPublicPage || !user) {
+    // 2. If it's a "No Sidebar" page OR user isn't logged in, just show content
+    if (shouldHideSidebar) {
         return <>{children}</>;
     }
 
-    // 3. For the rest of the app (Dashboard, Matches, etc.), show the Sidebar
+    // 3. The "Matchmaking" world - Sidebar is now active
     return (
         <div className="min-h-screen bg-[#091413] text-[#B0E4CC] flex overflow-hidden">
             <SideBar currentPage={currentPage} setCurrentPage={setCurrentPage} />

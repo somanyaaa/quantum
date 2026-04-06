@@ -1,3 +1,4 @@
+// app/layout.tsx
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
@@ -6,17 +7,10 @@ import { AuthProvider } from "@/context/AuthContext";
 import MainLayout from "@/components/layout/MainLayout";
 
 const inter = Inter({subsets:['latin'],variable:'--font-sans'});
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
+// Metadata is perfectly fine here now!
 export const metadata: Metadata = {
   title: "DevMatch",
   description: "Commit to the perfect team.",
@@ -37,6 +31,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <AuthProvider>
+          {/* MainLayout will handle the conditional sidebar logic */}
           <MainLayout> 
             {children}
           </MainLayout>
