@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import DevMatchLogo from '@/components/devmatchlogo';
-import { ArrowRight, User, Code2, Users } from 'lucide-react';
+import { ArrowRight, User, Code2, Users, Zap } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 
 const AVAILABLE_SKILLS = [
@@ -17,7 +17,8 @@ const EXPERIENCE_LEVELS = ["Beginner", "Intermediate", "Advanced"];
 export default function OnboardingPage() {
     const router = useRouter();
     const { updateProfile } = useAuth();
-    
+    const [commits, setCommits] = useState('');
+    const [projectsCount, setProjectsCount] = useState('');
     const [name, setName] = useState('');
     const [experience, setExperience] = useState('');
     const [mySkills, setMySkills] = useState<string[]>([]);
@@ -37,7 +38,15 @@ export default function OnboardingPage() {
 
     const handleCompleteProfile = async () => {
         setIsSubmitting(true);
-        const profileData = { name, experience, mySkills, teammatesNeeded, seekingSkills };
+        const profileData = { 
+            name, 
+            experience, 
+            mySkills, 
+            commits: parseInt(commits), 
+            projectsCount: parseInt(projectsCount), 
+            teammatesNeeded, 
+            seekingSkills 
+        };
         console.log("Saving Profile:", profileData);
         
         await new Promise(resolve => setTimeout(resolve, 1000));
@@ -45,10 +54,18 @@ export default function OnboardingPage() {
         updateProfile({
             username: name,
             skills: mySkills,
+            totalCommits: parseInt(commits),
+            projectCount: parseInt(projectsCount)
         });
         router.push('/dashboard');
     };
-    const isFormValid = name.trim() !== '' && experience !== '' && mySkills.length > 0;
+    const isFormValid = 
+        name.trim() !== '' && 
+        experience !== '' && 
+        mySkills.length > 0 && 
+        commits !== '' && 
+        projectsCount !== '';
+        
     return (
         <div className="min-h-screen bg-[#091413] text-[#B0E4CC] selection:bg-[#408A71] pb-24">
             <nav className="p-6 border-b border-[#285A48]/30 flex justify-center sticky top-0 bg-[#091413]/80 backdrop-blur-md z-50">
@@ -99,8 +116,46 @@ export default function OnboardingPage() {
                                 ))}
                             </div>
                         </div>
+
                     </div>
                 </div>
+
+                {/* --- TECHNICAL DNA STATS --- */}
+                <div className="bg-[#285A48]/10 border border-[#408A71]/30 rounded-3xl p-8 mb-8 shadow-xl">
+                    <div className="flex items-center gap-3 mb-6">
+                        <Zap className="text-[#A855F7] w-6 h-6 animate-pulse" />
+                        <h2 className="text-2xl font-bold text-[#B0E4CC]">Technical DNA</h2>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label className="block text-[#408A71] text-sm font-bold uppercase tracking-widest mb-2">
+                                Total Commits <span className="opacity-50 font-normal lowercase">(Last 12 Months)</span>
+                            </label>
+                            <input 
+                                type="number"
+                                value={commits}
+                                onChange={(e) => setCommits(e.target.value)}
+                                className="w-full bg-[#091413] border border-[#285A48] rounded-xl px-4 py-3 focus:border-[#B0E4CC] outline-none text-[#B0E4CC] placeholder:text-[#408A71]/50 transition-colors" 
+                                placeholder="e.g. 450" 
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-[#408A71] text-sm font-bold uppercase tracking-widest mb-2">
+                                Total Projects <span className="opacity-50 font-normal lowercase">(Completed)</span>
+                            </label>
+                            <input 
+                                type="number"
+                                value={projectsCount}
+                                onChange={(e) => setProjectsCount(e.target.value)}
+                                className="w-full bg-[#091413] border border-[#285A48] rounded-xl px-4 py-3 focus:border-[#B0E4CC] outline-none text-[#B0E4CC] placeholder:text-[#408A71]/50 transition-colors" 
+                                placeholder="e.g. 12" 
+                            />
+                        </div>
+                    </div>
+                </div>
+
                 <div className="bg-[#285A48]/10 border border-[#408A71]/30 rounded-3xl p-8 mb-8 shadow-xl">
                     <div className="flex items-center justify-between mb-6">
                         <div className="flex items-center gap-3">

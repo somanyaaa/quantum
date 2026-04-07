@@ -10,7 +10,10 @@ export interface User {
     skills?: string[];
     age?: number | string;
     location?: string;
-    matchCount?: number;joinedDate?: string;
+    matchCount?: number;
+    joinedDate?: string;
+    totalCommits?: number; 
+    projectCount?: number;
 }
 
 interface AuthContextType {

@@ -39,8 +39,8 @@ const SideBar = ({ currentPage = 'home', setCurrentPage }: any) => {
             </div>
 
             {/* Main Navigation*/}
-            <nav className="space-y-1 mb-10">
-                <p className="text-[10px] text-[#408A71] font-black uppercase tracking-[0.2em] mb-4 px-2">Menu</p>
+            <nav className="space-y-1 mb-8">
+                <p className="text-[10px] text-[#408A71] font-black uppercase tracking-[0.2em] mb-2` px-2">Menu</p>
                 {navigation.map((item) => (
                     <button 
                         key={item.page}
@@ -79,7 +79,7 @@ const SideBar = ({ currentPage = 'home', setCurrentPage }: any) => {
                 </div>
             </div>
 
-            <div className="pt-6 border-t border-[#285A48]/30 mt-6">
+            <div className="pt-2 border-t border-[#285A48]/30 mt-6">
                 <DropdownMenu.Root>
                     <DropdownMenu.Trigger asChild>
                         <button className="w-full flex items-center gap-3 p-2 rounded-xl hover:bg-[#285A48]/20 transition-all outline-none group text-left">
